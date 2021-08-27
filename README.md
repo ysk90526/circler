@@ -1,24 +1,54 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## circles テーブル
 
-Things you may want to cover:
+| Column             | Type   | Options    |
+| ------------------ | ------ | ---------- |
+| email              | string | null:false |
+| encrypted_password | string | null:false |
+| name               | string | null:false |
+| university         | string |            |
+| people             | string |            |
+| gender             | string |            |
+| frequency          | string |            |
+| introduction       | string |            |
 
-* Ruby version
+### Association
+- has_many :tweets
+- has_many :comments
 
-* System dependencies
+## users テーブル
 
-* Configuration
+| Column             | Type   | Options    |
+| ------------------ | ------ | ---------- |
+| email              | string | null:false |
+| encrypted_password | string | null:false |
+| nickname           | string | null:false |
+| university         | string |            |
 
-* Database creation
+### Association
+- has_many :comments
 
-* Database initialization
+## tweets テーブル
 
-* How to run the test suite
+| Column | Type       | Options           |
+| ------ | ---------- | ----------------- |
+| text   | text       | null:false        |
+| circle | references | foreign_key: true |
 
-* Services (job queues, cache servers, search engines, etc.)
+### Association
+- belongs_to :circle
+- has_many :comments
 
-* Deployment instructions
+## comments テーブル
+| Column | Type       | Options           |
+| ------ | ---------- | ----------------- |
+| text   | text       | null:false        |
+| circle | references | foreign_key: true |
+| user   | references | foreign_key: true |
+| tweet  | references | foreign_key: true |
 
-* ...
+### Association
+- belongs_to :circle
+- belongs_to :user
+- belongs_to :tweet
